@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.InaccessibleObjectException;
+//import java.lang.reflect.InaccessibleObjectException;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -110,7 +110,7 @@ public class ClubDeportivoTest {
     @Test
     @DisplayName("Testing add an activity correctly")
     void addActivity_Correctly() throws ClubException, NoSuchFieldException,  NullPointerException, SecurityException,
-        IllegalAccessException,  IllegalArgumentException, ExceptionInInitializerError, InaccessibleObjectException {
+        IllegalAccessException,  IllegalArgumentException, ExceptionInInitializerError/* , InaccessibleObjectException*/ {
         Grupo grupo = new Grupo("Codigo", "Futbol", 10, 0, 10.0);
 
         assertDoesNotThrow(() -> club.anyadirActividad(grupo));
@@ -122,17 +122,17 @@ public class ClubDeportivoTest {
 
 
         // Assert
-        assertThrows(IllegalArgumentException.class, () -> new ClubDeportivo("UMA", -2));
+        assertThrows(ClubException.class, () -> new ClubDeportivo("UMA", -2));
     
         // Assert
-        assertThrows(IllegalArgumentException.class, () -> new ClubDeportivo("UMA", -2));
+        assertThrows(ClubException.class, () -> new ClubDeportivo("UMA", -2));
     }
     
 
     @Test
     @DisplayName("Test to check that the places in an existing group are correctly updated")
     void updateExistingGroup_Success() throws ClubException, NoSuchFieldException,  NullPointerException, SecurityException,
-        IllegalAccessException,  IllegalArgumentException, ExceptionInInitializerError, InaccessibleObjectException {
+        IllegalAccessException,  IllegalArgumentException, ExceptionInInitializerError/*, InaccessibleObjectException*/ {
         Grupo grupo1 = new Grupo("Codigo", "Futbol", 10, 0, 10.0);
         Grupo grupo2 = new Grupo("Codigo", "Futbol", 10, 5, 10.0);
         try {
