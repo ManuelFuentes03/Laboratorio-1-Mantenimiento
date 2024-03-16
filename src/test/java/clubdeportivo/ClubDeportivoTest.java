@@ -4,11 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
-
-import java.lang.reflect.Field;
-import java.lang.reflect.InaccessibleObjectException;
+//import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -143,48 +139,224 @@ public class ClubDeportivoTest {
 
     @Test
     @DisplayName("Testing add an activity correctly")
-    void addActivity_Correctly() throws ClubException, NoSuchFieldException,  NullPointerException, SecurityException,
-        IllegalAccessException,  IllegalArgumentException, ExceptionInInitializerError, InaccessibleObjectException {
-        Grupo grupo = new Grupo("Codigo", "Futbol", 10, 0, 10.0);
+    void addActivity_Correctly_Enrollees() throws Exception {
+            // Arrange
+        Grupo group = new Grupo("Code", "Football", 10, 7, 10.0);
 
-        assertDoesNotThrow(() -> club.anyadirActividad(grupo));
+            // Act & Assert
+        assertDoesNotThrow(() -> club.anyadirActividad(group));
 
-            // Usando reflexión para acceder al campo privado 'ngrupos'
-        Field ngruposField = ClubDeportivo.class.getDeclaredField("ngrupos");
-        ngruposField.setAccessible(true);
-        assertEquals(1, ngruposField.get(club)); // Comprueba el valor del campo 'ngrupos'
+        assertEquals("UMA --> [ (Code - Football - 10.0 euros - P:10 - M:7) ]", club.toString());
+    }
 
+    @Test
+    @DisplayName("Testing add an activity correctly")
+    void addActivity_Correctly_Fare() throws Exception {
+            // Arrange
+        Grupo group = new Grupo("Code", "Football", 10, 7, 12.0);
 
-        // Assert
-        assertThrows(IllegalArgumentException.class, () -> new ClubDeportivo("UMA", -2));
-    
-        // Assert
-        assertThrows(IllegalArgumentException.class, () -> new ClubDeportivo("UMA", -2));
+            // Act & Assert
+        assertDoesNotThrow(() -> club.anyadirActividad(group));
+
+        assertEquals("UMA --> [ (Code - Football - 12.0 euros - P:10 - M:7) ]", club.toString());
     }
     
 
     @Test
     @DisplayName("Test to check that the places in an existing group are correctly updated")
-    void updateExistingGroup_Success() throws ClubException, NoSuchFieldException,  NullPointerException, SecurityException,
-        IllegalAccessException,  IllegalArgumentException, ExceptionInInitializerError, InaccessibleObjectException {
-        Grupo grupo1 = new Grupo("Codigo", "Futbol", 10, 0, 10.0);
-        Grupo grupo2 = new Grupo("Codigo", "Futbol", 10, 5, 10.0);
-        try {
-            club.anyadirActividad(grupo1);
+    void updateExistingGroup_Success() throws Exception {
+            // Arrange
+        Grupo group1 = new Grupo("Code", "Football", 10, 0, 10.0);
+        Grupo group2 = new Grupo("Code", "Football", 20, 0, 10.0);
 
-            assertDoesNotThrow(() -> club.anyadirActividad(grupo2)); // Aquí se usa el objeto Grupo
+            // Act & Assert
+        assertDoesNotThrow(() -> club.anyadirActividad(group1));
+        assertDoesNotThrow(() -> club.anyadirActividad(group2));
 
-            Field ngrupos = ClubDeportivo.class.getDeclaredField("ngrupos");
-            ngrupos.setAccessible(true);
-            assertEquals(1, ngrupos.get(club)); // Comprueba el valor del campo 'ngrupos'
+            // Arrange
+        assertEquals("UMA --> [ (Code - Football - 10.0 euros - P:20 - M:0) ]", club.toString());
 
-            Field nmatriculados = Grupo.class.getDeclaredField("nmatriculados");
-            nmatriculados.setAccessible(true);
-            assertEquals(5, nmatriculados.get(grupo2)); // Comprueba el valor del campo 'nmatriculados' del grupo2
-
-        } catch (ClubException e) {
-            fail("No se pudo añadir la actividad para el test: " + e.getMessage());
-        }
     }
 
+    @Test
+    @DisplayName("Test that adding a new group to a club whose number of groups is the maximum size triggers the correct exception")
+    void addActivity_Limit_Groups() throws Exception {
+            // Arrange
+        club = new ClubDeportivo("UMA");
+        Grupo group1 = new Grupo("Code", "Football", 10, 10, 10.0);
+        Grupo group2 = new Grupo("Code", "Basketball", 20, 18, 20.0);
+        Grupo group3 = new Grupo("Code", "Tennis", 8, 5, 40.0);
+        Grupo group4 = new Grupo("Code", "Volleyball", 20, 10, 15.0);
+        Grupo group5 = new Grupo("Code", "Golf", 15, 4, 55.0);
+        Grupo group6 = new Grupo("Code", "Rugby", 30, 16, 16.0);
+        Grupo group7 = new Grupo("Code", "Athletics", 40, 20, 7.0);
+        Grupo group8 = new Grupo("Code", "Baseball", 20, 11, 14.0);
+        Grupo group9 = new Grupo("Code", "Swimming", 40, 13, 9.0);
+        Grupo group10 = new Grupo("Code", "Cricket", 15, 2, 17.0);
+
+        assertDoesNotThrow(() -> club.anyadirActividad(group1));
+        assertDoesNotThrow(() -> club.anyadirActividad(group2));
+        assertDoesNotThrow(() -> club.anyadirActividad(group3));
+        assertDoesNotThrow(() -> club.anyadirActividad(group4));
+        assertDoesNotThrow(() -> club.anyadirActividad(group5));
+        assertDoesNotThrow(() -> club.anyadirActividad(group6));
+        assertDoesNotThrow(() -> club.anyadirActividad(group7));
+        assertDoesNotThrow(() -> club.anyadirActividad(group8));
+        assertDoesNotThrow(() -> club.anyadirActividad(group9));
+        assertDoesNotThrow(() -> club.anyadirActividad(group10));
+
+        Grupo group11 = new Grupo("Code", "Ski", 5, 2, 35.0);
+
+            // Act & Assert
+        assertThrows(ClubException.class, () -> club.anyadirActividad(group11));
+    }
+
+    @Test
+    @DisplayName("Test check the correct number of free places")
+    void testFreePlaces_Correctly() throws Exception{
+            // Arrange
+        club = new ClubDeportivo("UMA", 1);
+        Grupo group1 = new Grupo("Code", "Football", 10, 0, 10.0);
+        club.anyadirActividad(group1);
+
+            // Act
+        int result = club.plazasLibres("Football");
+        
+            // Assert
+        assertEquals(group1.plazasLibres(), result);
+    }
+
+    @Test
+    @DisplayName("Testing check the correct number of free places")
+    void testFreePlaces_MultipleGroups_Correctly() throws Exception{
+            // Arrange
+        club = new ClubDeportivo("UMA", 2);
+        Grupo group1 = new Grupo("Code", "Football", 10, 0, 10.0);
+        Grupo group2 = new Grupo("Code", "Football", 5, 0, 10.0);
+        club.anyadirActividad(group1);
+        club.anyadirActividad(group2);
+
+            // Act
+        int result = club.plazasLibres("Football");
+        
+            // Assert
+        assertEquals(5, result);
+    }
+
+    @Test
+    @DisplayName("Testing free places with no matching activity")
+    void testFreePlaces_NoMatchingActivity_Correctly() throws Exception{
+            // Arrange
+        club = new ClubDeportivo("UMA", 1);
+        Grupo group = new Grupo("Code", "Football", 10, 0, 10.0);
+        club.anyadirActividad(group);
+
+            // Act
+        int result = club.plazasLibres("Basketball");
+        
+            // Assert
+        assertEquals(0, result);
+    }
+
+    @Test
+    @DisplayName("Testing free places with empty groups")
+    void testFreePlaces_EmptyGroups_Correctly() throws Exception{
+            // Arrange
+        club = new ClubDeportivo("UMA", 1);
+
+            // Act
+        int result = club.plazasLibres("Football");
+        
+            // Assert
+        assertEquals(0, result);
+    }
+
+    @Test
+    @DisplayName("Testing that the correct exception is made when there are not enough free places for that activity in the club")
+    void registerPeople_NotEnoughFreePlaces() throws Exception{
+            // Arrange
+        club = new ClubDeportivo("UMA", 3);
+        Grupo group = new Grupo("Code", "Football", 10, 9, 10.0);
+        club.anyadirActividad(group);
+
+            // Act & Assert
+        assertThrows(ClubException.class, () -> club.matricular("Football", 3));
+    }
+
+    @Test
+    @DisplayName("Testing that a person registers in an activity correctly")
+    void registerAPerson_Correctly() throws Exception{
+            // Arrange
+        club = new ClubDeportivo("UMA", 3);
+        Grupo group = new Grupo("Code", "Football", 10, 5, 10.0);
+        club.anyadirActividad(group);
+
+            // Act & Assert
+        assertDoesNotThrow(() -> club.matricular("Football", 1));
+    }
+
+    @Test
+    @DisplayName("Testing that people registers in an activity correctly")
+    void registerPeople_Correctly() throws Exception{
+            // Arrange
+        club = new ClubDeportivo("UMA", 3);
+        Grupo group = new Grupo("Code", "Football", 10, 5, 10.0);
+        club.anyadirActividad(group);
+
+            // Act & Assert
+        assertDoesNotThrow(() -> club.matricular("Football", 3));
+    }
+
+    @Test
+    @DisplayName("Test that a club's revenue is calculated correctly")
+    void calculateRevenue_Correctly() throws Exception{
+            // Arrange
+        club = new ClubDeportivo("UMA", 3);
+        Grupo group1 = new Grupo("Code", "Football", 10, 5, 10.0);
+        Grupo group2 = new Grupo("Code", "Basketball", 20, 15, 25.0);
+        Grupo group3 = new Grupo("Code", "Tennis", 5, 5, 40.0);
+        club.anyadirActividad(group1);
+        club.anyadirActividad(group2);
+        club.anyadirActividad(group3);
+
+            // Act
+                // (10x5) + (25x15) + (40x5) = 625
+        double revenue = club.ingresos();
+
+            // Assert
+        assertEquals(625, revenue);
+    }
+
+    @Test
+    @DisplayName("Test that a club's revenue is calculated correctly")
+    void calculateRevenue_NoGroups_Correctly() throws Exception{
+            // Arrange
+        club = new ClubDeportivo("UMA", 3);
+
+            // Act
+        double revenue = club.ingresos();
+
+            // Assert
+        assertEquals(0, revenue);
+    }
+
+    @Test
+    @DisplayName("Test that when calculating the income of a club that has fewer groups than indicated when creating it, null groups are not taken into account")
+    void calculateRevenue_Groups_Limit() throws Exception{
+            // Arrange
+        club = new ClubDeportivo("UMA", 5);
+        Grupo group1 = new Grupo("Code", "Football", 10, 5, 10.0);
+        Grupo group2 = new Grupo("Code", "Basketball", 20, 15, 25.0);
+        Grupo group3 = new Grupo("Code", "Tennis", 5, 5, 40.0);
+        club.anyadirActividad(group1);
+        club.anyadirActividad(group2);
+        club.anyadirActividad(group3);
+
+            // Act
+                // (10x5) + (25x15) + (40x5) + 0 + 0 = 625
+        double revenue = club.ingresos();
+
+            // Assert
+        assertEquals(625, revenue);
+    }
 }
