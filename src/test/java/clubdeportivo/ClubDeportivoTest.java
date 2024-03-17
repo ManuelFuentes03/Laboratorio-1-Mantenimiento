@@ -4,15 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-//import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-//import clubdeportivo.ClubDeportivo;
-//import clubdeportivo.ClubException;
-//import clubdeportivo.Grupo;
 
 public class ClubDeportivoTest {
     ClubDeportivo club;
@@ -28,7 +23,7 @@ public class ClubDeportivoTest {
     }
 
     @Test
-    @DisplayName("Testing create a club with a negative number of groups")
+    @DisplayName("Test create a club with a negative number of groups")
     void createClub_throwsExceptionWhen_NumbersOfGroupsNegative() throws Exception{
         final String clubName = "UMA";
         final int groupSize = -2;
@@ -46,7 +41,7 @@ public class ClubDeportivoTest {
     }
 
     @Test
-    @DisplayName("Testing create a club correctly and verify that both the name of the club and the size of the group list are correct")
+    @DisplayName("Test create a club correctly and verify that both the name of the club and the size of the group list are correct")
     void createClub_Correctly() throws Exception {
             // Arrange
         final String clubName = "UMA";
@@ -59,6 +54,18 @@ public class ClubDeportivoTest {
             // Assert
         assertEquals(club.toString(), "UMA --> [  ]");
 
+    }
+
+    @Test
+    @DisplayName("Test to verify that an exception is thrown when the squares data is malformatted")
+    void addActivity_Correctly() throws Exception {
+            // Arrange
+        String[] data = {"Code", "Football", "12", "5", "10.0"};
+
+            // Act 
+        club.anyadirActividad(data);
+            // Assert
+        assertEquals("UMA --> [ (Code - Football - 10.0 euros - P:12 - M:5) ]", club.toString());
     }
 
     @Test
@@ -114,7 +121,7 @@ public class ClubDeportivoTest {
     }
 
     @Test
-    @DisplayName("test to verify that adding an activity with insufficient data throws the correct exception")
+    @DisplayName("Test to verify that adding an activity with insufficient data throws the correct exception")
     void addActivity_IncorrectDataLength() throws Exception {
             // Arrange
         String[] data = {"Code", "Football", "10", "11"};
@@ -126,7 +133,7 @@ public class ClubDeportivoTest {
     
     
     @Test
-    @DisplayName("Testing add an activity correctly")
+    @DisplayName("Test add an activity correctly")
     void addActivity_Correctly_Places() throws Exception {
             // Arrange
         Grupo group = new Grupo("Code", "Football", 10, 0, 10.0);
@@ -138,7 +145,7 @@ public class ClubDeportivoTest {
     }
 
     @Test
-    @DisplayName("Testing add an activity correctly")
+    @DisplayName("Test add an activity correctly")
     void addActivity_Correctly_Enrollees() throws Exception {
             // Arrange
         Grupo group = new Grupo("Code", "Football", 10, 7, 10.0);
@@ -150,7 +157,7 @@ public class ClubDeportivoTest {
     }
 
     @Test
-    @DisplayName("Testing add an activity correctly")
+    @DisplayName("Test add an activity correctly")
     void addActivity_Correctly_Fare() throws Exception {
             // Arrange
         Grupo group = new Grupo("Code", "Football", 10, 7, 12.0);
@@ -160,7 +167,16 @@ public class ClubDeportivoTest {
 
         assertEquals("UMA --> [ (Code - Football - 12.0 euros - P:10 - M:7) ]", club.toString());
     }
-    
+
+    @Test
+    @DisplayName("Test add an activity in a null group")
+    void addActivity_NullGroup() throws Exception {
+            // Arrange
+        Grupo group = null;
+
+            // Act & Assert
+        assertThrows(ClubException.class, () -> club.anyadirActividad(group));
+    }
 
     @Test
     @DisplayName("Test to check that the places in an existing group are correctly updated")
@@ -227,7 +243,7 @@ public class ClubDeportivoTest {
     }
 
     @Test
-    @DisplayName("Testing check the correct number of free places")
+    @DisplayName("Test check the correct number of free places")
     void testFreePlaces_MultipleGroups_Correctly() throws Exception{
             // Arrange
         club = new ClubDeportivo("UMA", 2);
@@ -244,7 +260,7 @@ public class ClubDeportivoTest {
     }
 
     @Test
-    @DisplayName("Testing free places with no matching activity")
+    @DisplayName("Test free places with no matching activity")
     void testFreePlaces_NoMatchingActivity_Correctly() throws Exception{
             // Arrange
         club = new ClubDeportivo("UMA", 1);
@@ -259,7 +275,7 @@ public class ClubDeportivoTest {
     }
 
     @Test
-    @DisplayName("Testing free places with empty groups")
+    @DisplayName("Test free places with empty groups")
     void testFreePlaces_EmptyGroups_Correctly() throws Exception{
             // Arrange
         club = new ClubDeportivo("UMA", 1);
@@ -272,7 +288,7 @@ public class ClubDeportivoTest {
     }
 
     @Test
-    @DisplayName("Testing that the correct exception is made when there are not enough free places for that activity in the club")
+    @DisplayName("Test that the correct exception is made when there are not enough free places for that activity in the club")
     void registerPeople_NotEnoughFreePlaces() throws Exception{
             // Arrange
         club = new ClubDeportivo("UMA", 3);
@@ -284,7 +300,40 @@ public class ClubDeportivoTest {
     }
 
     @Test
-    @DisplayName("Testing that a person registers in an activity correctly")
+    @DisplayName("Test that the correct exception is made when there are not enough free places in the club")
+    void registerPeople_NotEnoughFreePlacesClub() throws Exception{
+            // Arrange
+        club = new ClubDeportivo("UMA", 3);
+        Grupo group1 = new Grupo("Code", "Football", 10, 5, 10.0);
+        Grupo group2 = new Grupo("Code", "Basketball", 20, 15, 25.0);
+        Grupo group3 = new Grupo("Code", "Tennis", 5, 1, 40.0);
+        club.anyadirActividad(group1);
+        club.anyadirActividad(group2);
+        club.anyadirActividad(group3);
+
+            // Act 
+        club.matricular("Football", 5);
+        club.matricular("Basketball", 5);
+        club.matricular("Tennis", 4);
+
+            //Assert
+        assertEquals("UMA --> [ (Code - Football - 10.0 euros - P:10 - M:10), (Code - Basketball - 25.0 euros - P:20 - M:20), (Code - Tennis - 40.0 euros - P:5 - M:5) ]", club.toString());
+    }
+
+    @Test
+    @DisplayName("Test that the exception is correctly launched when more people enroll than available places")
+    void registerPeople_MorePlaces_Than_Available_Places() throws Exception{
+            // Arrange
+        club = new ClubDeportivo("UMA", 3);
+        Grupo group = new Grupo("Code", "Football", 10, 0, 10.0);
+        club.anyadirActividad(group);
+
+            // Act & Assert
+        assertThrows(ClubException.class, () -> club.matricular("Football", 11));
+    }
+
+    @Test
+    @DisplayName("Test that a person registers in an activity correctly")
     void registerAPerson_Correctly() throws Exception{
             // Arrange
         club = new ClubDeportivo("UMA", 3);
@@ -296,7 +345,7 @@ public class ClubDeportivoTest {
     }
 
     @Test
-    @DisplayName("Testing that people registers in an activity correctly")
+    @DisplayName("Test that people registers in an activity correctly")
     void registerPeople_Correctly() throws Exception{
             // Arrange
         club = new ClubDeportivo("UMA", 3);
@@ -305,6 +354,30 @@ public class ClubDeportivoTest {
 
             // Act & Assert
         assertDoesNotThrow(() -> club.matricular("Football", 3));
+    }
+
+    @Test
+    @DisplayName("Test that no one register in an activity correctly")
+    void registerNoOne_Correctly() throws Exception{
+            // Arrange
+        club = new ClubDeportivo("UMA", 3);
+        Grupo group = new Grupo("Code", "Football", 10, 5, 10.0);
+        club.anyadirActividad(group);
+
+            // Act & Assert
+        assertDoesNotThrow(() -> club.matricular("Football", 0));
+    }
+
+    @Test
+    @DisplayName("Test register a person in a non-existent activity")
+    void registerPerson_NonExistentActivity() throws Exception{
+            // Arrange
+        club = new ClubDeportivo("UMA", 3);
+        Grupo group = new Grupo("Code", "Football", 10, 5, 10.0);
+        club.anyadirActividad(group);
+
+            // Act & Assert
+        assertThrows(ClubException.class, () -> club.matricular("Basketball", 2));
     }
 
     @Test
@@ -344,7 +417,7 @@ public class ClubDeportivoTest {
     @DisplayName("Test that when calculating the income of a club that has fewer groups than indicated when creating it, null groups are not taken into account")
     void calculateRevenue_Groups_Limit() throws Exception{
             // Arrange
-        club = new ClubDeportivo("UMA", 5);
+        club = new ClubDeportivo("UMA", 9);
         Grupo group1 = new Grupo("Code", "Football", 10, 5, 10.0);
         Grupo group2 = new Grupo("Code", "Basketball", 20, 15, 25.0);
         Grupo group3 = new Grupo("Code", "Tennis", 5, 5, 40.0);
