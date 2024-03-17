@@ -60,7 +60,7 @@ public class ClubDeportivo {
 		}
 
 			//! ERROR CORREGIDO(3): no se verifica si ngrupos superará a TAM al añadir el grupo, lo que podría llevar a una excepción.
-		if (ngrupos == TAM) {
+		if (ngrupos >= grupos.length) {
 			throw new ClubException("ERROR: no se pueden añadir más grupos, el límite ha sido alcanzado");
 		}
 
