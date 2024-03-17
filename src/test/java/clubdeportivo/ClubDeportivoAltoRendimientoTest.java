@@ -3,26 +3,13 @@ package clubdeportivo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-//import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class ClubDeportivoAltoRendimientoTest {
-    /* 
-    ClubDeportivoAltoRendimiento club;
-
-    @BeforeEach
-    public void setUp_WithoutTam() throws ClubException{
-        club = new ClubDeportivoAltoRendimiento("UMA", 10, 0.1);
-    }
-
-    @BeforeEach
-    public void setUp_WithTam() throws ClubException{
-        ClubDeportivoAltoRendimiento clubTam = new ClubDeportivoAltoRendimiento("UMA", 5, 10, 0.1);
-    }
-    */
+    
     @Test
-    @DisplayName("El constructor que no tiene el tamaño funciona bien")
+    @DisplayName("El constructor que no recibe el parámetro tam funciona bien")
     public void newClubDeportivoAltoRendimientoWithoutTam_createdCorrectly() throws ClubException{
         String nombre = "UMA";
         int maximo = 10;
@@ -35,7 +22,7 @@ class ClubDeportivoAltoRendimientoTest {
     }
 
     @Test
-    @DisplayName("El constructor que no tiene el tamaño con el maximo con valor negativo devuelve una excepción")
+    @DisplayName("El constructor que no recibe el parámetro tam con el maximo con valor negativo devuelve una excepción")
     public void newClubDeportivoAltoRendimientoWithoutTam_NegativeMaximo_ThrowsException() throws ClubException{
         String nombre = "UMA";
         int maximo = -10;
@@ -45,7 +32,7 @@ class ClubDeportivoAltoRendimientoTest {
     }
 
     @Test
-    @DisplayName("El constructor que no tiene el tamaño con el incremento con valor negativo devuelve una excepción")
+    @DisplayName("El constructor que no recibe el parámetro tam con el incremento con valor negativo devuelve una excepción")
     public void newClubDeportivoAltoRendimientoWithoutTam_NegativeIncremento_ThrowsException() throws ClubException{
         String nombre = "UMA";
         int maximo = 10;
@@ -55,7 +42,7 @@ class ClubDeportivoAltoRendimientoTest {
     }
 
     @Test
-    @DisplayName("El constructor que no tiene el tamaño funciona bien")
+    @DisplayName("El constructor que recibe el parámetro tam funciona bien")
     public void newClubDeportivoAltoRendimientoWithTam_createdCorrectly() throws ClubException{
         String nombre = "UMA";
         int tam = 20;
@@ -69,7 +56,7 @@ class ClubDeportivoAltoRendimientoTest {
     }
 
     @Test
-    @DisplayName("El constructor que tiene el tamaño con el maximo con valor negativo devuelve una excepción")
+    @DisplayName("El constructor que no recibe el parámetro tam con el maximo con valor negativo devuelve una excepción")
     public void newClubDeportivoAltoRendimientoWithTam_NegativeMaximo_ThrowsException() throws ClubException{
         String nombre = "UMA";
         int maximo = -10;
@@ -80,7 +67,7 @@ class ClubDeportivoAltoRendimientoTest {
     }
 
     @Test
-    @DisplayName("El constructor que tiene el tamaño con el incremento con valor negativo devuelve una excepción")
+    @DisplayName("El constructor que no recibe el parámetro tam con el incremento con valor negativo devuelve una excepción")
     public void newClubDeportivoAltoRendimientoWithTam_NegativeIncremento_ThrowsException() throws ClubException{
         String nombre = "UMA";
         int tam = 20;
