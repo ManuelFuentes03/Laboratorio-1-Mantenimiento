@@ -57,7 +57,7 @@ public class ClubDeportivoTest {
     }
 
     @Test
-    @DisplayName("Test to verify that an exception is thrown when the squares data is malformatted")
+    @DisplayName("Test add an activity correctly")
     void addActivity_Correctly() throws Exception {
             // Arrange
         String[] data = {"Code", "Football", "12", "5", "10.0"};
@@ -83,7 +83,7 @@ public class ClubDeportivoTest {
     @DisplayName("Test to verify that an exception is thrown when the squares data is malformatted")
     void addActivity_IncorrectSquaresFormat_ThrowsException() throws Exception {
             // Arrange
-        String[] data = {"Code", "Football", "2.5", "5", "10.0"};
+        String[] data = {"Code", "Football", "12.5", "5", "10.0"};
 
             // Act & Assert
         assertThrows(ClubException.class, () -> club.anyadirActividad(data));
@@ -93,7 +93,7 @@ public class ClubDeportivoTest {
     @DisplayName("Test to verify that an exception is thrown when the enrollees data is malformatted")
     void addActivity_IncorrectEnrolleesFormat_ThrowsException() throws Exception {
             // Arrange
-        String[] data = {"Code", "Football", "2", "5.5", "10.0"};
+        String[] data = {"Code", "Football", "12", "5.5", "10.0"};
 
             // Act & Assert
         assertThrows(ClubException.class, () -> club.anyadirActividad(data));
@@ -103,7 +103,7 @@ public class ClubDeportivoTest {
     @DisplayName("Test to verify that an exception is thrown when the fare data is malformatted")
     void addActivity_IncorrectFareFormat_ThrowsException() throws Exception {
             // Arrange
-        String[] data = {"Code", "Football", "2", "5", "10"};
+        String[] data = {"Code", "Football", "12", "5", "ab"};
 
             // Act & Assert
         assertThrows(ClubException.class, () -> club.anyadirActividad(data));
@@ -300,7 +300,7 @@ public class ClubDeportivoTest {
     }
 
     @Test
-    @DisplayName("Test that the correct exception is made when there are not enough free places in the club")
+    @DisplayName("Test that register is made correctly when there are free places")
     void registerPeople_NotEnoughFreePlacesClub() throws Exception{
             // Arrange
         club = new ClubDeportivo("UMA", 3);

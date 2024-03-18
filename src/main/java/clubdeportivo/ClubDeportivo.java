@@ -59,7 +59,7 @@ public class ClubDeportivo {
 			throw new ClubException("ERROR: el grupo es nulo");
 		}
 
-			//! ERROR CORREGIDO(3): no se verifica si ngrupos superará a TAM al añadir el grupo, lo que podría llevar a una excepción.
+			//! ERROR CORREGIDO(3): no se verifica si ngrupos superará a el número máximo de grupos permitido al añadir el grupo, lo que podría llevar a una excepción.
 		if (ngrupos >= grupos.length) {
 			throw new ClubException("ERROR: no se pueden añadir más grupos, el límite ha sido alcanzado");
 		}
