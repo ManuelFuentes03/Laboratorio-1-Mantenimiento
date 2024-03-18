@@ -112,7 +112,7 @@ public class GrupoTest {
         double tarifa = 15.6;
         Grupo grupo = new Grupo(codigo, actividad, nplazas, matriculados, tarifa);
         
-        assert(grupo.getPlazas() == nplazas);
+        assertEquals(grupo.getPlazas(), nplazas);
         
     }
 
@@ -126,7 +126,7 @@ public class GrupoTest {
         double tarifa = 15.6;
         Grupo grupo = new Grupo(codigo, actividad, nplazas, matriculados, tarifa);
         
-        assert(grupo.getMatriculados() == matriculados);
+        assertEquals(grupo.getMatriculados(), matriculados);
         
     }
 
@@ -140,12 +140,12 @@ public class GrupoTest {
         double tarifa = 15.6;
         Grupo grupo = new Grupo(codigo, actividad, nplazas, matriculados, tarifa);
         
-        assert(grupo.getTarifa() == tarifa);
+        assertEquals(grupo.getTarifa(),tarifa);
         
     }
 
     @Test
-    @DisplayName("Testing PlazasLibres 's method with more alums than places")
+    @DisplayName("Testing PlazasLibres 's method with more places than alumns")
     void TestPlazasLibres() throws ClubException{
         String codigo = "1234";
         String actividad = "Boxeo";
@@ -154,7 +154,7 @@ public class GrupoTest {
         double tarifa = 15.6;
         Grupo grupo = new Grupo(codigo, actividad, nplazas, matriculados, tarifa);
         
-        assert(grupo.plazasLibres() == nplazas-matriculados);
+        assertEquals(grupo.plazasLibres(), nplazas-matriculados);
         
     }
 
@@ -170,7 +170,7 @@ public class GrupoTest {
         Grupo grupo = new Grupo(codigo, actividad, nplazas, matriculados, tarifa);
         grupo.actualizarPlazas(actualizarPlazas);
         
-        assert(grupo.getPlazas() == actualizarPlazas);
+        assertEquals(grupo.getPlazas(), actualizarPlazas);
         
     }
 
@@ -204,7 +204,7 @@ public class GrupoTest {
     }
 
     @Test
-    @DisplayName("Testing Matricular's methods with positive parameter")
+    @DisplayName("Testing Matricular's methods with correct parameter")
     void TestMatricularPositiveParemater() throws ClubException{
         String codigo = "1234";
         String actividad = "Boxeo";
@@ -215,7 +215,7 @@ public class GrupoTest {
         Grupo grupo = new Grupo(codigo, actividad, nplazas, matriculados, tarifa);
         grupo.matricular(alumnos);
         
-        assert(grupo.getMatriculados() == matriculados+alumnos);
+        assertEquals(grupo.getMatriculados(), matriculados+alumnos);
         
     }
 
@@ -309,7 +309,7 @@ public class GrupoTest {
     }
 
     @Test
-    @DisplayName("Testing Equals's method with no equals Goups")
+    @DisplayName("Testing Equals's method with no equals Groups")
     void testEqualsObjetosDiferentes() throws ClubException {
         String codigo = "1234";
         String codigo2 = "5678";
@@ -325,17 +325,35 @@ public class GrupoTest {
     }
 
     @Test
-    @DisplayName("Testing Equals's method with no Objetc Group")
-    void testEqualsConObjetosNoGrupo() throws ClubException {
+    @DisplayName("Testing Equals's method with the same code but different activity")
+    void testEqualsWithDifferentActivityReturnsFalse() throws ClubException {
         String codigo = "1234";
+        String codigo2 = "1234";
         String actividad = "Boxeo";
+        String actividad2 = "Natacion";
         int nplazas = 15;
         int matriculados = 10;
         double tarifa = 15.6;
-        Grupo grupo = new Grupo(codigo, actividad, nplazas, matriculados, tarifa);
-        String otroObjeto = "no soy un Grupo";
+        Grupo grupo1 = new Grupo(codigo, actividad, nplazas, matriculados, tarifa);
+        Grupo grupo2 = new Grupo(codigo2, actividad2, nplazas, matriculados, tarifa);
 
-        assertFalse(grupo.equals(otroObjeto));
+        assertFalse(grupo1.equals(grupo2));
+    }
+
+    @Test
+    @DisplayName("Testing Equals's method with the same activity but different code")
+    void testEqualsWithDifferentCodeReturnsFalse() throws ClubException {
+        String codigo = "1234";
+        String codigo2 = "5678";
+        String actividad = "Boxeo";
+        String actividad2 = "Boxeo";
+        int nplazas = 15;
+        int matriculados = 10;
+        double tarifa = 15.6;
+        Grupo grupo1 = new Grupo(codigo, actividad, nplazas, matriculados, tarifa);
+        Grupo grupo2 = new Grupo(codigo2, actividad2, nplazas, matriculados, tarifa);
+
+        assertFalse(grupo1.equals(grupo2));
     }
 
     @Test
