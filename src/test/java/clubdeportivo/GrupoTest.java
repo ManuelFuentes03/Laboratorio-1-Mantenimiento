@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
 public class GrupoTest {
     @Test
     @DisplayName("Testing the constructor of Grupo's class")
-    void testConstructorConDatosValidos() throws ClubException {
+    void TestConstructor_WithValidArguments_ReturnEquals() throws ClubException {
         String codigo = "1234";
         String actividad = "Boxeo";
         int nplazas = 15;
@@ -34,7 +34,7 @@ public class GrupoTest {
 
    @Test
     @DisplayName("Testing the constructor of Grupo's class with a megative parameter of places")
-    void TestConstructorWithNplazasNegative(){
+    void TestConstructor_WithNegativePlaces_ThrowException(){
         String codigo = "1234";
         String actividad = "Boxeo";
         int nplazas = -15;
@@ -46,7 +46,7 @@ public class GrupoTest {
 
     @Test
     @DisplayName("Testing the constructor of Grupo's class with a negative parameter of alums")
-    void TestConstructorWithMatriculadosNegative(){
+    void TestConstructor_WithsNegativeAlums_ThrowException(){
         String codigo = "1234";
         String actividad = "Boxeo";
         int nplazas = 15;
@@ -58,7 +58,7 @@ public class GrupoTest {
 
     @Test
     @DisplayName("Testing the constructor of Grupo's class with a negative price")
-    void TestConstructorWithTarifaNegative(){
+    void TestConstructor_WithNegativeFare_ThrowException(){
         String codigo = "1234";
         String actividad = "Boxeo";
         int nplazas = 15;
@@ -70,7 +70,7 @@ public class GrupoTest {
 
     @Test
     @DisplayName("Testing the constructor of Grupo's class whith more alumns than places")
-    void TestConstructorWithMatriculadosBiggerThanNplazas(){
+    void TestConstructor_WithMoreAlumsThanPlaces_ThrowException(){
         String codigo = "1234";
         String actividad = "Boxeo";
         int nplazas = 5;
@@ -82,7 +82,7 @@ public class GrupoTest {
 
     @Test
     @DisplayName("Testing getCodigo 's method")
-        void TestGetCodigo() throws ClubException{
+        void TestGetCodigo_WithCorrectArguments_ReturnEquals() throws ClubException{
         String codigo = "1234";
         String actividad = "Boxeo";
         int nplazas = 15;
@@ -96,7 +96,7 @@ public class GrupoTest {
 
     @Test
     @DisplayName("Testing getActividad 's method")
-        void TestGetActvidad() throws ClubException{
+        void TestGetActvidad_WithCorrectArguemnts_ReturnEquals() throws ClubException{
         String codigo = "1234";
         String actividad = "Boxeo";
         int nplazas = 15;
@@ -110,7 +110,7 @@ public class GrupoTest {
 
     @Test
     @DisplayName("Testing getPlazas 's method")
-    void TestGetPlazas() throws ClubException{
+    void TestGetPlazas_WithCorrectArguments_ReturnEquals() throws ClubException{
         String codigo = "1234";
         String actividad = "Boxeo";
         int nplazas = 15;
@@ -124,7 +124,7 @@ public class GrupoTest {
 
     @Test
     @DisplayName("Testing getMatriculados 's method")
-    void TestGetMatriculados() throws ClubException{
+    void TestGetMatriculados_WithCorrectArguments_ReturnEquals() throws ClubException{
         String codigo = "1234";
         String actividad = "Boxeo";
         int nplazas = 15;
@@ -138,7 +138,7 @@ public class GrupoTest {
 
     @Test
     @DisplayName("Testing getTarifa 's method")
-    void TestGetTarifa() throws ClubException{
+    void TestGetTarifa_WithCorrectArguments_ReturnEquals() throws ClubException{
         String codigo = "1234";
         String actividad = "Boxeo";
         int nplazas = 15;
@@ -152,7 +152,7 @@ public class GrupoTest {
 
     @Test
     @DisplayName("Testing PlazasLibres 's method with more places than alumns")
-    void TestPlazasLibres() throws ClubException{
+    void TestPlazasLibres_WithCorrectArguments_ReturnEquals() throws ClubException{
         String codigo = "1234";
         String actividad = "Boxeo";
         int nplazas = 15;
@@ -166,7 +166,7 @@ public class GrupoTest {
 
     @Test
     @DisplayName("Testing ActualizarPlazas 's method with positive parameter")
-    void TestActualizarPlazasPositiveParameter() throws ClubException{
+    void TestActualizarPlazas_WithPositiveParameter_ReturnEquals() throws ClubException{
         String codigo = "1234";
         String actividad = "Boxeo";
         int nplazas = 15;
@@ -182,7 +182,7 @@ public class GrupoTest {
 
     @Test
     @DisplayName("Testing ActualizarPlazas 's method with negative places")
-    void TestActualizarPlazasNegativePlazas() throws ClubException{
+    void TestActualizarPlazas_WithNegativePlaces_ThrowException() throws ClubException{
         String codigo = "1234";
         String actividad = "Boxeo";
         int nplazas = 15;
@@ -195,8 +195,8 @@ public class GrupoTest {
         
     }
     @Test
-    @DisplayName("Testing ActualizarPlazas 's method with more matriculados than places")
-    void TestActualizarPlazasPlazasLessThanMatriculados() throws ClubException{
+    @DisplayName("Testing ActualizarPlazas 's method with more alums than places")
+    void TestActualizarPlazas_MoreAlumsThanPlaces_ThrowException() throws ClubException{
         String codigo = "1234";
         String actividad = "Boxeo";
         int nplazas = 15;
@@ -211,7 +211,7 @@ public class GrupoTest {
 
     @Test
     @DisplayName("Testing Matricular's methods with correct parameter")
-    void TestMatricularPositiveParemater() throws ClubException{
+    void TestMatricular_WithPositiveParemater_ReturnEquals() throws ClubException{
         String codigo = "1234";
         String actividad = "Boxeo";
         int nplazas = 15;
@@ -226,8 +226,8 @@ public class GrupoTest {
     }
 
     @Test
-    @DisplayName("Testing Matricular's method with more alumns than places")
-    void TestMatricularNplazasLessThanAlumnos() throws ClubException{
+    @DisplayName("Testing Matricular's method with more people than places")
+    void TestRegister_WithMorePeopleThanPlaces_ThrowsException() throws ClubException{
         String codigo = "1234";
         String actividad = "Boxeo";
         int nplazas = 15;
@@ -241,8 +241,8 @@ public class GrupoTest {
     }
 
     @Test
-    @DisplayName("Testing Matricular's methods with negative alumns")
-    void TestMatricularNegativeAlumnos() throws ClubException{
+    @DisplayName("Testing Matricular's methods with negative people")
+    void TestRegister_WithNegativePeople_ThrowsException() throws ClubException{
         String codigo = "1234";
         String actividad = "Boxeo";
         int nplazas = 15;
@@ -272,7 +272,7 @@ public class GrupoTest {
 
     @Test
     @DisplayName("Testing Equals's method with two equals Groups")
-    void testEqualsObjetosIguales() throws ClubException {
+    void TestEquals_WithSameGroups_ReturnsTrue() throws ClubException {
         String codigo = "1234";
         String actividad = "Boxeo";
         int nplazas = 15;
@@ -286,7 +286,7 @@ public class GrupoTest {
 
     @Test
     @DisplayName("Testing Equals's method with a non-Grupo object")
-    void testEqualsConObjetoNoGrupo() throws ClubException {
+    void TestEquals_WithNonGroup_ReturnsFalse() throws ClubException {
     String codigo = "1234";
     String actividad = "Boxeo";
     int nplazas = 15;
@@ -301,7 +301,7 @@ public class GrupoTest {
 
     @Test
     @DisplayName("Testing Equals's method with the same activity, in upper and in low case")
-    void testEqualsConDistintasMayusculas() throws ClubException {
+    void TestEquals_WithDifferentCapitalLetters_ReturnsTrue() throws ClubException {
         String codigo = "1234";
         String actividad = "Boxeo";
         String actividad2 = "boxeo";
@@ -316,7 +316,7 @@ public class GrupoTest {
 
     @Test
     @DisplayName("Testing Equals's method with no equals Groups")
-    void testEqualsObjetosDiferentes() throws ClubException {
+    void TestEquals_WithDiferentGroups_ReturnsFalse() throws ClubException {
         String codigo = "1234";
         String codigo2 = "5678";
         String actividad = "Boxeo";
@@ -332,7 +332,7 @@ public class GrupoTest {
 
     @Test
     @DisplayName("Testing Equals's method with the same code but different activity")
-    void testEqualsWithDifferentActivityReturnsFalse() throws ClubException {
+    void TestEquals_WithDifferentActivity_ReturnsFalse() throws ClubException {
         String codigo = "1234";
         String codigo2 = "1234";
         String actividad = "Boxeo";
@@ -348,7 +348,7 @@ public class GrupoTest {
 
     @Test
     @DisplayName("Testing Equals's method with the same activity but different code")
-    void testEqualsWithDifferentCodeReturnsFalse() throws ClubException {
+    void TestEquals_WithDifferentCode_ReturnsFalse() throws ClubException {
         String codigo = "1234";
         String codigo2 = "5678";
         String actividad = "Boxeo";
