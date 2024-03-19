@@ -51,7 +51,7 @@ class ClubDeportivoAltoRendimientoTest {
     @DisplayName("The constructor that receives the parameter tam, works correctly")
     public void newClubDeportivoAltoRendimientoWithTam_createdCorrectly() throws ClubException{
         String nombre = "UMA";
-        int tam = 20;
+        int tam = 8;
         int maximo = 10;
         double incremento = 0.1;
         String expected = "UMA --> [  ]";
