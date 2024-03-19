@@ -8,6 +8,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+/*
+ * @author1: Manuel Fuentes Vida
+ * @author2: Jose Antonio Casado Molina
+ * @author3: Clemente Cano Mengíbar
+ */
+
 public class GrupoTest {
     @Test
     @DisplayName("Testing the constructor of Grupo's class")

@@ -2,6 +2,12 @@ package clubdeportivo;
 
 import java.util.StringJoiner;
 
+/*
+ * @author1: Manuel Fuentes Vida
+ * @author2: Jose Antonio Casado Molina
+ * @author3: Clemente Cano Mengíbar
+ */
+
 public class ClubDeportivo {
 	private String nombre;
 	private int ngrupos;
