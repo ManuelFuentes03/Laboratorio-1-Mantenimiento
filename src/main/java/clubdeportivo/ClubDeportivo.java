@@ -25,7 +25,7 @@ public class ClubDeportivo {
 
 		//! ERROR CORREGIDO(1): un club no puede crearse con un numero de grupos mayor que el tamaño máximo TAM
 		if(n > TAM){
-			throw new ClubException("ERROR: el club no puede crearse con un número de grupos mayor que el tamaño máximo");
+			throw new ClubException();
 		}
 		
 		this.nombre = nombre;
