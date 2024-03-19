@@ -9,6 +9,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+/*
+ * @author1: Manuel Fuentes Vida
+ * @author2: Jose Antonio Casado Molina
+ * @author3: Clemente Cano Mengíbar
+ */
+
 public class ClubDeportivoTest {
     ClubDeportivo club;
 
