@@ -6,6 +6,12 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+/*
+ * @author1: Manuel Fuentes Vida
+ * @author2: Jose Antonio Casado Molina
+ * @author3: Clemente Cano Mengíbar
+ */
+
 class ClubDeportivoAltoRendimientoTest {
     
     @Test
