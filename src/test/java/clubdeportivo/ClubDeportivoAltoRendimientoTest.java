@@ -66,7 +66,7 @@ class ClubDeportivoAltoRendimientoTest {
     public void newClubDeportivoAltoRendimientoWithTam_NegativeMaximo_ThrowsException() throws ClubException{
         String nombre = "UMA";
         int maximo = -10;
-        int tam = 20;
+        int tam = 10;
         double incremento = 0.1;
 
         assertThrows(ClubException.class, () -> new ClubDeportivoAltoRendimiento(nombre,tam, maximo, incremento));
@@ -76,9 +76,31 @@ class ClubDeportivoAltoRendimientoTest {
     @DisplayName("The constructor that receives the parameter tam with the increment with negative value returns a exception")
     public void newClubDeportivoAltoRendimientoWithTam_NegativeIncremento_ThrowsException() throws ClubException{
         String nombre = "UMA";
-        int tam = 20;
+        int tam = 10;
         int maximo = 10;
         double incremento = -0.1;
+
+        assertThrows(ClubException.class, () -> new ClubDeportivoAltoRendimiento(nombre,tam, maximo, incremento));
+    }
+
+    @Test
+    @DisplayName("The constructor that receives the parameter tam with the increment with negative value returns a exception")
+    public void newClubDeportivoAltoRendimientoWithTam_withZeroMaximo_ThrowsException() throws ClubException{
+        String nombre = "UMA";
+        int tam = 10;
+        int maximo = 0;
+        double incremento = 0.1;
+
+        assertThrows(ClubException.class, () -> new ClubDeportivoAltoRendimiento(nombre,tam, maximo, incremento));
+    }
+
+    @Test
+    @DisplayName("The constructor that receives the parameter tam with the increment with negative value returns a exception")
+    public void newClubDeportivoAltoRendimientoWithTam_withZeroIncremento_ThrowsException() throws ClubException{
+        String nombre = "UMA";
+        int tam = 10;
+        int maximo = 10;
+        double incremento = 0;
 
         assertThrows(ClubException.class, () -> new ClubDeportivoAltoRendimiento(nombre,tam, maximo, incremento));
     }
