@@ -257,7 +257,7 @@ public class GrupoTest {
 
     @Test
     @DisplayName("Testing String's methods")
-    void TestString() throws ClubException{
+    void TestString_worksCorrectly() throws ClubException{
         String codigo = "1234";
         String actividad = "Boxeo";
         int nplazas = 15;
@@ -364,7 +364,7 @@ public class GrupoTest {
 
     @Test
     @DisplayName("Testing HashCode's method")
-    void TestHashCode() throws ClubException{
+    void TestHashCode_worksCorrectly() throws ClubException{
         String codigo = "1234";
         String actividad = "Boxeo";
         int nplazas = 15;
